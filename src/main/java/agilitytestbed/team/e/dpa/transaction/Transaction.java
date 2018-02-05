@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 /**
  * @author Martijn Noorlander
- * @since 4-2-2018.
+ * @since 4-2-2018
  */
 @Entity
 public class Transaction {
