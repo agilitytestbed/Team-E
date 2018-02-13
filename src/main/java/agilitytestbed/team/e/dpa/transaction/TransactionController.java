@@ -17,9 +17,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping(value = "/transactions")
 public interface TransactionController {
 
-    @RequestMapping(value = "/", params = {"offset", "limit"}, method = GET)
+    @RequestMapping(value = "/", params = {"offset", "limit", "category"}, method = GET)
     public ResponseEntity<List<Transaction>> getTransactions(@RequestParam(value = "offset", required = false) Long offset,
-                                                             @RequestParam(value = "limit", required = false) Long limit);
+                                                             @RequestParam(value = "limit", required = false) Long limit,
+                                                             @RequestParam(value = "category", required = false) String category);
     @RequestMapping(value = "/", method = POST)
     public ResponseEntity<Transaction> addTransaction(@RequestBody NewTransactionDto newTransactionDto);
 

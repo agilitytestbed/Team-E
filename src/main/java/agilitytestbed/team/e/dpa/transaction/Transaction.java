@@ -1,9 +1,8 @@
 package agilitytestbed.team.e.dpa.transaction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import agilitytestbed.team.e.dpa.security.Authenticated;
+
+import javax.persistence.*;
 
 /**
  * @author Martijn Noorlander
@@ -15,4 +14,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne
+    private Authenticated authenticated;
 }
