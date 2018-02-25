@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class CategoryControllerImpl implements CategoryController {
     @Override
-    public ResponseEntity<List<Category>> getCategories(Long offset, Long limit) {
+    public ResponseEntity<List<Category>> getCategories() {
         return null;
     }
 

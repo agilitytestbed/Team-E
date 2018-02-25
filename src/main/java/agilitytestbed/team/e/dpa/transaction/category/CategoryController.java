@@ -12,12 +12,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  * @since 4-2-2018.
  */
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/categories")
 public interface CategoryController {
 
-    @RequestMapping(value = "/", params = {"offset", "limit"}, method = GET)
-    public ResponseEntity<List<Category>> getCategories(@RequestParam(value = "offset", required = false) Long offset,
-                                                        @RequestParam(value = "limit", required = false) Long limit);
+    @RequestMapping(value = "/", method = GET)
+    public ResponseEntity<List<Category>> getCategories();
 
     @RequestMapping(value = "/", method = POST)
     public ResponseEntity<Category> addCategory(@RequestBody NewCategoryDto newCategoryDto);
@@ -25,10 +24,11 @@ public interface CategoryController {
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity<Category> getCategory(@PathVariable("id") Long id);
 
+    @RequestMapping(value = "/{id}", method = PUT)
+    public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody NewCategoryDto newCategoryDto);
+
     @RequestMapping(value = "/{id}", method = DELETE)
     public ResponseEntity deleteCategory(@PathVariable("id") Long id);
 
-    @RequestMapping(value = "/{id}", method = PUT)
-    public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody NewCategoryDto newCategoryDto);
 
 }
