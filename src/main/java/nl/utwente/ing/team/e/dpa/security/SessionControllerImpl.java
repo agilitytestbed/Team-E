@@ -1,5 +1,6 @@
 package nl.utwente.ing.team.e.dpa.security;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -8,8 +9,14 @@ import org.springframework.http.ResponseEntity;
  **/
 public class SessionControllerImpl implements SessionController {
 
+    private final AuthenticatedService authenticatedService;
+
+    public SessionControllerImpl(AuthenticatedService authenticatedService) {
+        this.authenticatedService = authenticatedService;
+    }
+
     @Override
     public ResponseEntity<Object> getSession() {
-        return null;
+        return new ResponseEntity<Object>(authenticatedService.create(), HttpStatus.OK);
     }
 }
