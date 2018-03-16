@@ -1,12 +1,14 @@
 package nl.utwente.ing.team.e.dpa.transaction.category;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
  * @author Martijn Noorlander
  */
+@RestController
 public class CategoryControllerImpl implements CategoryController {
     @Override
     public ResponseEntity<List<Category>> getCategories() {

@@ -1,7 +1,7 @@
 package nl.utwente.ing.team.e.dpa.transaction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import nl.utwente.ing.team.e.dpa.security.Authenticated;
+import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
 
 import javax.persistence.*;

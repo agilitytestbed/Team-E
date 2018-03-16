@@ -1,8 +1,6 @@
-package nl.utwente.ing.team.e.dpa.security;
+package nl.utwente.ing.team.e.dpa.security.authentication;
 
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 /**
  * @author Martijn Noorlander

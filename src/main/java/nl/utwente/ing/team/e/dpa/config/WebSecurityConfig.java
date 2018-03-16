@@ -1,10 +1,12 @@
 package nl.utwente.ing.team.e.dpa.config;
 
-import nl.utwente.ing.team.e.dpa.security.AuthenticatedService;
 import nl.utwente.ing.team.e.dpa.security.SessionIdFilter;
+import nl.utwente.ing.team.e.dpa.security.authentication.AuthenticatedService;
+import nl.utwente.ing.team.e.dpa.security.authentication.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -30,9 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(getSessionIdFilter(), BasicAuthenticationFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/sessions/").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                    .antMatchers("/sessions").permitAll()
+                    .antMatchers("/**").authenticated()
+                .and()
                 .logout()
                     .permitAll();
     }
@@ -42,4 +44,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new SessionIdFilter(authenticatedService);
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider());
+    }
+
+    @Bean
+    public CustomAuthenticationProvider authProvider() {
+        return new CustomAuthenticationProvider();
+    }
 }

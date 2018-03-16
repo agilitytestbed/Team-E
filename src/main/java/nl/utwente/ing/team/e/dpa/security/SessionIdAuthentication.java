@@ -1,5 +1,6 @@
 package nl.utwente.ing.team.e.dpa.security;
 
+import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
