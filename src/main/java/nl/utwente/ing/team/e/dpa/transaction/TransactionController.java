@@ -1,11 +1,9 @@
 package nl.utwente.ing.team.e.dpa.transaction;
 
 import nl.utwente.ing.team.e.dpa.dto.SingleIdWrapper;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -17,10 +15,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping(value = "/transactions")
 public interface TransactionController {
 
-    @RequestMapping(params = {"offset", "limit", "category"}, method = GET)
-    public ResponseEntity<List<Transaction>> getTransactions(@RequestParam(value = "offset", required = false) Long offset,
-                                                             @RequestParam(value = "limit", required = false) Long limit,
+    @RequestMapping(method = GET)
+    public ResponseEntity<Page<Transaction>> getTransactions(@RequestParam(value = "offset", required = false,
+            defaultValue = "0") int offset,
+                                                             @RequestParam(value = "limit", required = false,
+                                                                     defaultValue = "20") int limit,
                                                              @RequestParam(value = "category", required = false) String category);
+
     @RequestMapping(method = POST)
     public ResponseEntity<Transaction> addTransaction(@RequestBody NewTransactionDto newTransactionDto);
 

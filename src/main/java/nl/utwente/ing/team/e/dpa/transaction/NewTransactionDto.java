@@ -21,13 +21,12 @@ public class NewTransactionDto {
     @NotNull
     private TransactionType type;
 
-    @NotNull
-    private int category;
+    private Integer category;
 
     public NewTransactionDto() {
     }
 
-    public NewTransactionDto(Date date, int amount, String externalIban, TransactionType type, int category) {
+    public NewTransactionDto(Date date, int amount, String externalIban, TransactionType type, Integer category) {
         this.date = date;
         this.amount = amount;
         this.externalIban = externalIban;
@@ -51,7 +50,7 @@ public class NewTransactionDto {
         return type;
     }
 
-    public int getCategory() {
+    public Integer getCategory() {
         return category;
     }
 }

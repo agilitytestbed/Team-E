@@ -1,5 +1,9 @@
 package nl.utwente.ing.team.e.dpa.transaction;
 
+import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
+import nl.utwente.ing.team.e.dpa.transaction.category.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +13,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+
+    public Page<Transaction> findAllByAuthenticated(Pageable pageable, Authenticated authenticated);
+
+    public Page<Transaction> findAllByAuthenticatedAndCategory(Pageable pageable, Authenticated authenticated,
+                                                               Category category);
 }

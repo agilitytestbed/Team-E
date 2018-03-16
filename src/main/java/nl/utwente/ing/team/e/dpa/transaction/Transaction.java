@@ -36,6 +36,15 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(Authenticated authenticated, Date date, int amount, String externalIban, TransactionType type) {
+        this.authenticated = authenticated;
+        this.date = date;
+        this.amount = amount;
+        this.externalIban = externalIban;
+        this.type = type;
+    }
+
+
     public Transaction(Authenticated authenticated, Date date, int amount, String externalIban, TransactionType type, Category category) {
         this.authenticated = authenticated;
         this.date = date;
@@ -71,5 +80,9 @@ public class Transaction {
 
     public Category getCategory() {
         return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
