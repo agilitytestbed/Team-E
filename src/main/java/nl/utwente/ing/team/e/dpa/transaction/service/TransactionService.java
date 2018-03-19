@@ -1,6 +1,8 @@
-package nl.utwente.ing.team.e.dpa.transaction;
+package nl.utwente.ing.team.e.dpa.transaction.service;
 
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
+import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
+import nl.utwente.ing.team.e.dpa.transaction.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

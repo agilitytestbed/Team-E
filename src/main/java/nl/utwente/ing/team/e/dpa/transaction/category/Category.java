@@ -1,9 +1,10 @@
 package nl.utwente.ing.team.e.dpa.transaction.category;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
+import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
+
+import javax.persistence.*;
 
 /**
  * @author Martijn Noorlander
@@ -18,11 +19,20 @@ public class Category {
 
     private String name;
 
+    @ManyToOne
+    @JsonIgnore
+    private Authenticated authenticated;
+
     public Category() {
     }
 
     public Category(String name) {
         this.name = name;
+    }
+
+    public Category(NewCategoryDto newCategoryDto, Authenticated current) {
+        this.name = newCategoryDto.getName();
+        this.authenticated = current;
     }
 
     public Long getId() {
@@ -31,5 +41,13 @@ public class Category {
 
     public String getName() {
         return name;
+    }
+
+    public Authenticated getAuthenticated() {
+        return authenticated;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

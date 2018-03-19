@@ -1,7 +1,10 @@
-package nl.utwente.ing.team.e.dpa.transaction;
+package nl.utwente.ing.team.e.dpa.transaction.controller;
 
 import nl.utwente.ing.team.e.dpa.dto.SingleIdWrapper;
-import nl.utwente.ing.team.e.dpa.framework.BaseController;
+import nl.utwente.ing.team.e.dpa.framework.BaseUtility;
+import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
+import nl.utwente.ing.team.e.dpa.transaction.Transaction;
+import nl.utwente.ing.team.e.dpa.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Martijn Noorlander
  */
 @RestController
-public class TransactionControllerImpl extends BaseController implements TransactionController {
+public class TransactionUtilityImpl extends BaseUtility implements TransactionController {
 
     private final TransactionService transactionService;
 
     @Autowired
-    public TransactionControllerImpl(TransactionService transactionService) {
+    public TransactionUtilityImpl(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
 

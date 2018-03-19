@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author Martijn Noorlander
  */
-public class BaseController {
+public class BaseUtility {
 
     @Autowired
     AuthenticatedService authenticatedService;

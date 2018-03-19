@@ -1,8 +1,11 @@
-package nl.utwente.ing.team.e.dpa.transaction;
+package nl.utwente.ing.team.e.dpa.transaction.service;
 
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
+import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
+import nl.utwente.ing.team.e.dpa.transaction.Transaction;
+import nl.utwente.ing.team.e.dpa.transaction.TransactionRepository;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
-import nl.utwente.ing.team.e.dpa.transaction.category.CategoryService;
+import nl.utwente.ing.team.e.dpa.transaction.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,8 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
             transaction = new Transaction(authenticated, newTransaction.getDate(), newTransaction.getAmount(),
                     newTransaction.getExternalIban(), newTransaction.getType());
         } else {
-            // TODO: Get category
-            Category category = null;
+            Category category = categoryService.find(newTransaction.getCategory());
             transaction = new Transaction(authenticated, newTransaction.getDate(), newTransaction.getAmount(),
                     newTransaction.getExternalIban(), newTransaction.getType(), category);
         }
@@ -62,20 +64,25 @@ public class TransactionServiceImpl implements TransactionService {
             return transactionRepository.findAllByAuthenticated(new PageRequest(offset, limit),
                     authenticated);
         }
-        Category categoryObj = null;
+        Category categoryObj = categoryService.findByName(category);
         return transactionRepository.findAllByAuthenticatedAndCategory(new PageRequest(offset, limit),
                 authenticated, categoryObj);
     }
 
     @Override
     public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto) {
-        return null;
+        Transaction transaction = transactionRepository.findOne(id);
+        if(transaction == null){
+            // TODO Throw 404
+        }
+        transaction.update(newTransactionDto);
+        return transactionRepository.save(transaction);
     }
 
     @Override
     public Transaction assignCategory(Long id, Long categoryid) {
         Transaction transaction = transactionRepository.findOne(id);
-        Category category = null;
+        Category category = categoryService.find(categoryid);
         transaction.setCategory(category);
         return transactionRepository.save(transaction);
     }

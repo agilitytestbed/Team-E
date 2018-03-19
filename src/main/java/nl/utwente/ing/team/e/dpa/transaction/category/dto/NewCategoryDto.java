@@ -1,4 +1,4 @@
-package nl.utwente.ing.team.e.dpa.transaction.category;
+package nl.utwente.ing.team.e.dpa.transaction.category.dto;
 
 import javax.validation.constraints.NotNull;
 

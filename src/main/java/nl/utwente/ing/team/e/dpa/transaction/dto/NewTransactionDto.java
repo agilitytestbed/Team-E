@@ -1,4 +1,6 @@
-package nl.utwente.ing.team.e.dpa.transaction;
+package nl.utwente.ing.team.e.dpa.transaction.dto;
+
+import nl.utwente.ing.team.e.dpa.transaction.TransactionType;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -21,12 +23,12 @@ public class NewTransactionDto {
     @NotNull
     private TransactionType type;
 
-    private Integer category;
+    private Long category;
 
     public NewTransactionDto() {
     }
 
-    public NewTransactionDto(Date date, int amount, String externalIban, TransactionType type, Integer category) {
+    public NewTransactionDto(Date date, int amount, String externalIban, TransactionType type, Long category) {
         this.date = date;
         this.amount = amount;
         this.externalIban = externalIban;
@@ -50,7 +52,7 @@ public class NewTransactionDto {
         return type;
     }
 
-    public Integer getCategory() {
+    public Long getCategory() {
         return category;
     }
 }

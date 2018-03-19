@@ -1,5 +1,7 @@
-package nl.utwente.ing.team.e.dpa.transaction.category;
+package nl.utwente.ing.team.e.dpa.transaction.category.controller;
 
+import nl.utwente.ing.team.e.dpa.transaction.category.Category;
+import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

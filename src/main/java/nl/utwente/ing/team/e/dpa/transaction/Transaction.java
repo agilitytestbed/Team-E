@@ -3,6 +3,7 @@ package nl.utwente.ing.team.e.dpa.transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
+import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -84,5 +85,12 @@ public class Transaction {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void update(NewTransactionDto newTransactionDto) {
+        this.date = newTransactionDto.getDate();
+        this.amount = newTransactionDto.getAmount();
+        this.externalIban = newTransactionDto.getExternalIban();
+        this.type = newTransactionDto.getType();
     }
 }
