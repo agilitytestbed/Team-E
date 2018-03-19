@@ -1,6 +1,7 @@
 package nl.utwente.ing.team.e.dpa.transaction.category.service;
 
 import nl.utwente.ing.team.e.dpa.framework.BaseUtility;
+import nl.utwente.ing.team.e.dpa.framework.exception.NotFoundException;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
 import nl.utwente.ing.team.e.dpa.transaction.category.CategoryRepository;
@@ -32,7 +33,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
     public Category find(Long id) {
         Category category = categoryRepository.getOne(id);
         if(category == null){
-            // TODO Throw 404
+            throw new NotFoundException("The category with id: " + id + " was not found");
         }
         return category;
     }
@@ -41,7 +42,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
     public void delete(Long id) {
         Category category = categoryRepository.getOne(id);
         if(category == null){
-            // TODO Throw 404
+            throw new NotFoundException("The category with id: " + id + " was not found");
         }
         categoryRepository.delete(id);
     }
@@ -50,7 +51,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
     public Category update(Long id, NewCategoryDto newCategoryDto) {
         Category category = categoryRepository.getOne(id);
         if(category == null){
-            // TODO Throw 404
+            throw new NotFoundException("The category with id: " + id + " was not found");
         }
         category.setName(newCategoryDto.getName());
         return categoryRepository.save(category);
@@ -60,7 +61,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
     public Category findByName(String categoryName) {
         Category category = categoryRepository.findByNameAndAuthenticated(categoryName, getCurrent());
         if(category == null){
-            // TODO Throw 404
+            throw new NotFoundException("The category with name: " + categoryName + " was not found");
         }
         return category;
     }

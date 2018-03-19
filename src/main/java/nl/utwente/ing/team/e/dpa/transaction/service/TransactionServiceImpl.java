@@ -1,5 +1,7 @@
 package nl.utwente.ing.team.e.dpa.transaction.service;
 
+import nl.utwente.ing.team.e.dpa.framework.exception.NotFoundException;
+import nl.utwente.ing.team.e.dpa.framework.exception.UnauthorizedException;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 import nl.utwente.ing.team.e.dpa.transaction.Transaction;
@@ -32,7 +34,10 @@ public class TransactionServiceImpl implements TransactionService {
         if (transaction != null && transaction.getAuthenticated().equals(authenticated)) {
             return transaction;
         }
-        throw new IllegalStateException();
+        if(!transaction.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
+        }
+        throw new NotFoundException("The transaction with id: " + id + " was not found");
     }
 
     @Override
@@ -73,7 +78,7 @@ public class TransactionServiceImpl implements TransactionService {
     public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto) {
         Transaction transaction = transactionRepository.findOne(id);
         if(transaction == null){
-            // TODO Throw 404
+            throw new NotFoundException("The transaction with id: " + id + " was not found");
         }
         transaction.update(newTransactionDto);
         return transactionRepository.save(transaction);
