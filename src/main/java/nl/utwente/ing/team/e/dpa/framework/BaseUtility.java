@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author Martijn Noorlander
  */
-public class BaseUtility {
+public abstract class BaseUtility {
 
     @Autowired
     AuthenticatedService authenticatedService;
 
-    public Authenticated getCurrent(){
+    protected BaseUtility() {
+
+    }
+
+    protected Authenticated getCurrent(){
         return authenticatedService.getCurrent();
     }
 }
