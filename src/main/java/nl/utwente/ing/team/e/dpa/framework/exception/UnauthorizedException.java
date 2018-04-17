@@ -1,6 +1,7 @@
 package nl.utwente.ing.team.e.dpa.framework.exception;
 
 /**
+ * Exception for when access to an instance is not authorized
  * @author Martijn Noorlander
  */
 public class UnauthorizedException extends RuntimeException {

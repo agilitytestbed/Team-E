@@ -1,5 +1,6 @@
 package nl.utwente.ing.team.e.dpa.transaction.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.utwente.ing.team.e.dpa.transaction.TransactionType;
 
 import javax.validation.constraints.NotNull;
@@ -11,14 +12,15 @@ import java.util.Date;
  */
 public class NewTransactionDto {
 
-    @NotNull
+    //@NotNull
     private Date date;
 
     @NotNull
-    private int amount;
+    private double amount;
 
     @NotNull
-    private String externalIban;
+    @JsonProperty(value = "externalIBAN")
+    private String externalIBAN;
 
     @NotNull
     private TransactionType type;
@@ -28,10 +30,10 @@ public class NewTransactionDto {
     public NewTransactionDto() {
     }
 
-    public NewTransactionDto(Date date, int amount, String externalIban, TransactionType type, Long category) {
+    public NewTransactionDto(Date date, double amount, String externalIban, TransactionType type, Long category) {
         this.date = date;
         this.amount = amount;
-        this.externalIban = externalIban;
+        this.externalIBAN = externalIban;
         this.type = type;
         this.category = category;
     }
@@ -40,12 +42,12 @@ public class NewTransactionDto {
         return date;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
     public String getExternalIban() {
-        return externalIban;
+        return externalIBAN;
     }
 
     public TransactionType getType() {

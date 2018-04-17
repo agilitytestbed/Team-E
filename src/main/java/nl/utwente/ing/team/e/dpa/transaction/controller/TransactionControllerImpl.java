@@ -1,6 +1,6 @@
 package nl.utwente.ing.team.e.dpa.transaction.controller;
 
-import nl.utwente.ing.team.e.dpa.dto.SingleIdWrapper;
+import nl.utwente.ing.team.e.dpa.transaction.category.dto.SingleCategoryIdWrapper;
 import nl.utwente.ing.team.e.dpa.framework.BaseUtility;
 import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 import nl.utwente.ing.team.e.dpa.transaction.Transaction;
@@ -62,7 +62,7 @@ public class TransactionControllerImpl extends BaseUtility implements Transactio
     }
 
     @Override
-    public ResponseEntity<Transaction> assignCategoryToTransaction(@PathVariable("id") Long id, @RequestBody @Valid SingleIdWrapper singleIdWrapper) {
-        return new ResponseEntity<>(transactionService.assignCategory(id, singleIdWrapper.getId()), HttpStatus.OK);
+    public ResponseEntity<Transaction> assignCategoryToTransaction(@PathVariable("id") Long id, @RequestBody @Valid SingleCategoryIdWrapper singleCategoryIdWrapper) {
+        return new ResponseEntity<>(transactionService.assignCategory(id, singleCategoryIdWrapper.getId()), HttpStatus.OK);
     }
 }

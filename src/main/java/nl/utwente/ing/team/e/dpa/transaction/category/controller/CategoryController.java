@@ -5,32 +5,59 @@ import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
+ * Controller for Category objects
  * @author Martijn Noorlander
  * @since 4-2-2018.
  */
-@RestController
 @RequestMapping("/categories")
 public interface CategoryController {
 
-    @RequestMapping(value = "/", method = GET)
-    public ResponseEntity<List<Category>> getCategories();
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(
+            method = GET)
+    ResponseEntity<List<Category>> getCategories();
 
-    @RequestMapping(value = "/", method = POST)
-    public ResponseEntity<Category> addCategory(@RequestBody NewCategoryDto newCategoryDto);
+    /**
+     *
+     * @param newCategoryDto
+     * @return
+     */
+    @RequestMapping(method = POST)
+    ResponseEntity<Category> addCategory(@RequestBody @Valid NewCategoryDto newCategoryDto);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/{id}", method = GET)
-    public ResponseEntity<Category> getCategory(@PathVariable("id") Long id);
+    ResponseEntity<Category> getCategory(@PathVariable("id") Long id);
 
+    /**
+     *
+     * @param id
+     * @param newCategoryDto
+     * @return
+     */
     @RequestMapping(value = "/{id}", method = PUT)
-    public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody NewCategoryDto newCategoryDto);
+    ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody NewCategoryDto newCategoryDto);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/{id}", method = DELETE)
-    public ResponseEntity deleteCategory(@PathVariable("id") Long id);
+    ResponseEntity deleteCategory(@PathVariable("id") Long id);
 
 
 }

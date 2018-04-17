@@ -59,6 +59,7 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = transactionRepository.findOne(id);
         if(transaction.getAuthenticated().equals(authenticated)) {
             transactionRepository.delete(id);
+            return;
         }
         throw new IllegalStateException("This transaction does not belong to this user");
     }

@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
+ * Implementation of the Authenticated Interface
  * @author Martijn Noorlander
  * @since 28-02-2018
  **/

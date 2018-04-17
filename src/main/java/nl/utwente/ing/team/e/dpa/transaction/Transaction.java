@@ -25,19 +25,19 @@ public class Transaction {
 
     private Date date;
 
-    private int amount;
+    private double amount;
 
     private String externalIban;
 
     private TransactionType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     public Transaction() {
     }
 
-    public Transaction(Authenticated authenticated, Date date, int amount, String externalIban, TransactionType type) {
+    public Transaction(Authenticated authenticated, Date date, double amount, String externalIban, TransactionType type) {
         this.authenticated = authenticated;
         this.date = date;
         this.amount = amount;
@@ -46,7 +46,7 @@ public class Transaction {
     }
 
 
-    public Transaction(Authenticated authenticated, Date date, int amount, String externalIban, TransactionType type, Category category) {
+    public Transaction(Authenticated authenticated, Date date, double amount, String externalIban, TransactionType type, Category category) {
         this.authenticated = authenticated;
         this.date = date;
         this.amount = amount;
@@ -67,7 +67,7 @@ public class Transaction {
         return date;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 

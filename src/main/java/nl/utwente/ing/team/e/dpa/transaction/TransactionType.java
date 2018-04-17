@@ -6,6 +6,6 @@ package nl.utwente.ing.team.e.dpa.transaction;
  **/
 public enum TransactionType {
 
-    WITHDRAWAL, DEPOSIT;
+    withdrawal, deposit;
 
 }

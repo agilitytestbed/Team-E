@@ -1,6 +1,6 @@
 package nl.utwente.ing.team.e.dpa.transaction.controller;
 
-import nl.utwente.ing.team.e.dpa.dto.SingleIdWrapper;
+import nl.utwente.ing.team.e.dpa.transaction.category.dto.SingleCategoryIdWrapper;
 import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 import nl.utwente.ing.team.e.dpa.transaction.Transaction;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +39,5 @@ public interface TransactionController {
     ResponseEntity<Transaction> updateTransaction(@PathVariable("id") Long id, @RequestBody NewTransactionDto newTransactionDto);
 
     @RequestMapping(value = "/{id}/category", method = PATCH)
-    ResponseEntity<Transaction> assignCategoryToTransaction(@PathVariable("id") Long id, @RequestBody SingleIdWrapper singleIdWrapper);
+    ResponseEntity<Transaction> assignCategoryToTransaction(@PathVariable("id") Long id, @RequestBody SingleCategoryIdWrapper singleCategoryIdWrapper);
 }

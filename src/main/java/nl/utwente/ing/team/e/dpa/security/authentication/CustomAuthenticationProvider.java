@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 /**
+ * AuthenticationProvider for Authenticated objects, necessary
+ * for the <code>SessionIdFilter</code> to function
  * @author Martijn Noorlander
  */
 public class CustomAuthenticationProvider implements AuthenticationProvider {

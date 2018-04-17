@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
+ * Custom API Exception handler
  * @author Martijn Noorlander
  */
 @ControllerAdvice(annotations = RestController.class)

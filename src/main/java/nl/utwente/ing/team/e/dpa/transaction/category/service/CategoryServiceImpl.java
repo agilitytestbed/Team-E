@@ -6,6 +6,7 @@ import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
 import nl.utwente.ing.team.e.dpa.transaction.category.CategoryRepository;
 import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,12 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl extends BaseUtility implements CategoryService {
 
-    CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    @Autowired
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public List<Category> getCategories(Authenticated current) {

@@ -3,6 +3,8 @@ package nl.utwente.ing.team.e.dpa.security.authentication;
 import org.springframework.stereotype.Service;
 
 /**
+ * Interface for AuthenticatedService. This service provied method to verify,
+ * retrieve and generate authenticated objects
  * @author Martijn Noorlander
  */
 

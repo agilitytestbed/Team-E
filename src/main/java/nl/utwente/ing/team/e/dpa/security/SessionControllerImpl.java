@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Implementation of the session controller
  * @author Martijn Noorlander
  * @since 28-02-2018
  **/

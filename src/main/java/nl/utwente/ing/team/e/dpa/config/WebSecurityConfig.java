@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
+ * Configuration for web security
  * @author Martijn Noorlander
  */
 @Configuration
@@ -31,6 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .addFilterAfter(getSessionIdFilter(), BasicAuthenticationFilter.class)
                 .csrf().disable()
+                .cors()
+                .and()
                 .authorizeRequests()
                     .antMatchers("/sessions").permitAll()
                     .antMatchers("/**").authenticated()

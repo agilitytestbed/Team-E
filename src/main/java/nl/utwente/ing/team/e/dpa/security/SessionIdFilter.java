@@ -13,11 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Custom Authentication Filter to allow authentication with an id
+ * on the wwwheader
  * @author Martijn Noorlander
  */
 public class SessionIdFilter extends GenericFilterBean {
 
-    private final static String SECURITY_HEADER = "wwwheader";
+    private final static String SECURITY_HEADER = "X-session-ID";
+    private final static String QUERY_HEADER = "session_id";
 
     private AuthenticatedService authenticatedService;
 
@@ -32,11 +35,12 @@ public class SessionIdFilter extends GenericFilterBean {
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
         try {
-            Long id = new Long(httpServletRequest.getHeader(SECURITY_HEADER));
-
-            if (/*SecurityContextHolder.getContext().getAuthentication() == null &&
-                    !SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&*/
-                    authenticatedService.verify(id)) {
+            String token = httpServletRequest.getHeader(SECURITY_HEADER);
+            if(token == null){
+                token = httpServletRequest.getParameter(QUERY_HEADER);
+            }
+            Long id = new Long(token);
+            if (authenticatedService.verify(id)) {
                 SecurityContextHolder.getContext().setAuthentication(
                         new SessionIdAuthentication(authenticatedService.getAuthentication(id)));
                 System.out.println("Authenticated");

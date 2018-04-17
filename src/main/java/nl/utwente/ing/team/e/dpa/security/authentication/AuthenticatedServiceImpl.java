@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
+ * Implementation of the <code>AuthenticatedService</code>
  * @author Martijn Noorlander
  * @since 28-02-2018
  **/
