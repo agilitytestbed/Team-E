@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>dpa</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Digital Payment Assistant</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -49,6 +49,14 @@
 			<scope>test</scope>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>25.0-jre</version>
+		</dependency>
+
 		<!-- Database -->
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -62,6 +70,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+					<finalName>DPA</finalName>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

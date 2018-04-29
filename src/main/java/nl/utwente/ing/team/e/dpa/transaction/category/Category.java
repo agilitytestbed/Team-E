@@ -1,6 +1,7 @@
 package nl.utwente.ing.team.e.dpa.transaction.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
  * @author Martijn Noorlander
  * @since 4-2-2018.
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Category {
 

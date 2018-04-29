@@ -19,42 +19,42 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public interface CategoryController {
 
     /**
-     *
-     * @return
+     * Retrieve all categories for a provided session
+     * @return ResponseEntity with categories
      */
     @RequestMapping(
             method = GET)
     ResponseEntity<List<Category>> getCategories();
 
     /**
-     *
-     * @param newCategoryDto
-     * @return
+     * Create a category with a given session
+     * @param newCategoryDto Name of category
+     * @return ResponseEntity with Category
      */
     @RequestMapping(method = POST)
     ResponseEntity<Category> addCategory(@RequestBody @Valid NewCategoryDto newCategoryDto);
 
     /**
-     *
-     * @param id
-     * @return
+     * Retrieve a category
+     * @param id Id of specific category
+     * @return ResponseEntity with Category
      */
     @RequestMapping(value = "/{id}", method = GET)
     ResponseEntity<Category> getCategory(@PathVariable("id") Long id);
 
     /**
-     *
-     * @param id
-     * @param newCategoryDto
-     * @return
+     * Update a category with an id
+     * @param id Id of category
+     * @param newCategoryDto name of category
+     * @return ResponseEntity with Category
      */
     @RequestMapping(value = "/{id}", method = PUT)
     ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody NewCategoryDto newCategoryDto);
 
     /**
-     *
-     * @param id
-     * @return
+     * Delete a category with an id
+     * @param id Id of category
+     * @return ResponseEntity Void
      */
     @RequestMapping(value = "/{id}", method = DELETE)
     ResponseEntity deleteCategory(@PathVariable("id") Long id);

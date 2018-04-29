@@ -3,6 +3,7 @@ package nl.utwente.ing.team.e.dpa.transaction.category.service;
 import nl.utwente.ing.team.e.dpa.framework.BaseUtility;
 import nl.utwente.ing.team.e.dpa.framework.exception.NotFoundException;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
+import nl.utwente.ing.team.e.dpa.transaction.TransactionRepository;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
 import nl.utwente.ing.team.e.dpa.transaction.category.CategoryRepository;
 import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
@@ -17,10 +18,12 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl extends BaseUtility implements CategoryService {
 
+    private final TransactionRepository transactionRepository;
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
+        this.transactionRepository = transactionRepository;
         this.categoryRepository = categoryRepository;
     }
 
@@ -50,6 +53,10 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
         }
+        transactionRepository.findALlByCategory(category).forEach(t -> {
+            t.setCategory(null);
+            transactionRepository.save(t);
+        });
         categoryRepository.delete(id);
     }
 

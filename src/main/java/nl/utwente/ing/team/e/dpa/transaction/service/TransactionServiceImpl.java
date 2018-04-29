@@ -90,6 +90,7 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = transactionRepository.findOne(id);
         Category category = categoryService.find(categoryid);
         transaction.setCategory(category);
-        return transactionRepository.save(transaction);
+        transaction = transactionRepository.save(transaction);
+        return transaction;
     }
 }

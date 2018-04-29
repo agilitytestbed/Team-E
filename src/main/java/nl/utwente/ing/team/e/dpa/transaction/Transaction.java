@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * Transaction Object
  * @author Martijn Noorlander
  * @since 4-2-2018
  */
@@ -31,7 +32,8 @@ public class Transaction {
 
     private TransactionType type;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    // Set correct relation
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Category category;
 
     public Transaction() {
