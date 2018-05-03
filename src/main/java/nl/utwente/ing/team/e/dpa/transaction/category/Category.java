@@ -8,6 +8,7 @@ import nl.utwente.ing.team.e.dpa.transaction.category.dto.NewCategoryDto;
 import javax.persistence.*;
 
 /**
+ * Entity for categories
  * @author Martijn Noorlander
  * @since 4-2-2018.
  */

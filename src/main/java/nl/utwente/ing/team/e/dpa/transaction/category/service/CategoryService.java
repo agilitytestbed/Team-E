@@ -23,17 +23,37 @@ public interface CategoryService {
 
     /**
      * Create a new category
-     * @param newCategoryDto
-     * @param current
-     * @return
+     * @param newCategoryDto Category to create
+     * @param current <code>Authenticated</code> session
+     * @return <code>Category</code> created
      */
     Category create(NewCategoryDto newCategoryDto, Authenticated current);
 
+    /**
+     * Find a category by Id
+     * @param id Long Id of category
+     * @return <code>Category</code> found
+     */
     Category find(Long id);
 
+    /**
+     * Delete a category by Id
+     * @param id Long Id of category
+     */
     void delete(Long id);
 
+    /**
+     * Update a category
+     * @param newCategoryDto new Category details
+     * @param id Long Id of category
+     * @return <code>Category</code> updated
+     */
     Category update(Long id, NewCategoryDto newCategoryDto);
 
+    /**
+     * Find a category by name
+     * @param category String name of category
+     * @return <code>Category</code> found
+     */
     Category findByName(String category);
 }

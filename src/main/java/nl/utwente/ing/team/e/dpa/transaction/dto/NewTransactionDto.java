@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
+ * DTO For new transactions
  * @author Martijn Noorlander
  * @since 4-2-2018.
  */
