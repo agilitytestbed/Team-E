@@ -21,6 +21,6 @@ public class SessionControllerImpl implements SessionController {
 
     @Override
     public ResponseEntity<Object> getSession() {
-        return new ResponseEntity<Object>(authenticatedService.create(), HttpStatus.OK);
+        return new ResponseEntity<Object>(authenticatedService.create(), HttpStatus.CREATED);
     }
 }

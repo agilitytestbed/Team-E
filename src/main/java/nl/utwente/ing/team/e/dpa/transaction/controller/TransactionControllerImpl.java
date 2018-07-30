@@ -40,7 +40,7 @@ public class TransactionControllerImpl extends BaseUtility implements Transactio
 
     @Override
     public ResponseEntity<Transaction> addTransaction(@RequestBody @Valid NewTransactionDto newTransactionDto) {
-        return new ResponseEntity<>(transactionService.addTransaction(newTransactionDto, getCurrent()), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.addTransaction(newTransactionDto, getCurrent()), HttpStatus.CREATED);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package nl.utwente.ing.team.e.dpa.transaction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
 import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
@@ -28,6 +29,7 @@ public class Transaction {
 
     private double amount;
 
+    @JsonProperty(value = "externalIBAN")
     private String externalIban;
 
     private TransactionType type;
