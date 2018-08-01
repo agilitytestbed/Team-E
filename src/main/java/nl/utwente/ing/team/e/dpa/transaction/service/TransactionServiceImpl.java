@@ -34,7 +34,7 @@ public class TransactionServiceImpl implements TransactionService {
         if (transaction != null && transaction.getAuthenticated().equals(authenticated)) {
             return transaction;
         }
-        if(!transaction.getAuthenticated().equals(authenticated)){
+        if(transaction != null && !transaction.getAuthenticated().equals(authenticated)){
             throw new UnauthorizedException("Transaction does not belong to this user");
         }
         throw new NotFoundException("The transaction with id: " + id + " was not found");

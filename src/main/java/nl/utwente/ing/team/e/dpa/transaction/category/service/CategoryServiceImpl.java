@@ -40,7 +40,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
 
     @Override
     public Category find(Long id) {
-        Category category = categoryRepository.getOne(id);
+        Category category = categoryRepository.findOne(id);
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
         }
@@ -49,7 +49,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
 
     @Override
     public void delete(Long id) {
-        Category category = categoryRepository.getOne(id);
+        Category category = categoryRepository.findOne(id);
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
         }
@@ -62,7 +62,7 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
 
     @Override
     public Category update(Long id, NewCategoryDto newCategoryDto) {
-        Category category = categoryRepository.getOne(id);
+        Category category = categoryRepository.findOne(id);
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
         }
