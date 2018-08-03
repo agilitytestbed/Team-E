@@ -1,4 +1,4 @@
-package agilitytestbed.team.e.dpa;
+package nl.utwente.ing.team.e.dpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

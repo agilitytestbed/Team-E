@@ -1,4 +1,4 @@
-package agilitytestbed.team.e.dpa;
+package nl.utwente.ing.team.e;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
