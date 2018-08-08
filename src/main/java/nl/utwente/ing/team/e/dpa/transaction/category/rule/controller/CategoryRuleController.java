@@ -36,5 +36,4 @@ public interface CategoryRuleController {
     @RequestMapping(value = "/{id}", method = DELETE)
     ResponseEntity deleteCategoryRule(@PathVariable("id") Long id);
 
-
 }

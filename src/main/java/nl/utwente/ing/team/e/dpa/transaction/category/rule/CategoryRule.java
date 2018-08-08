@@ -2,7 +2,9 @@ package nl.utwente.ing.team.e.dpa.transaction.category.rule;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
+import nl.utwente.ing.team.e.dpa.transaction.TransactionType;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
+import nl.utwente.ing.team.e.dpa.transaction.category.rule.dto.NewCategoryRule;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -23,7 +25,9 @@ public class CategoryRule {
 
     private Timestamp timeStamp;
 
-    @OneToMany
+    private TransactionType transactionType;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Category category;
 
@@ -34,15 +38,25 @@ public class CategoryRule {
     private boolean applyOnHistory;
 
     public CategoryRule() {
+        this.timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public CategoryRule(String description, String iban, Category category, Authenticated authenticated, boolean applyOnHistory) {
+    public CategoryRule(NewCategoryRule newRule) {
+        this();
+        this.description = newRule.getDescription();
+        this.iban = newRule.getiBAN();
+        this.applyOnHistory = newRule.isApplyOnHistory();
+        this.transactionType = newRule.getType();
+    }
+
+    public CategoryRule(String description, String iban, Category category, Authenticated authenticated, boolean applyOnHistory, TransactionType type) {
+        this();
+        this.transactionType = type;
         this.description = description;
         this.iban = iban;
         this.category = category;
         this.authenticated = authenticated;
         this.applyOnHistory = applyOnHistory;
-        this.timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Long getId() {
@@ -87,6 +101,10 @@ public class CategoryRule {
 
     public boolean isApplyOnHistory() {
         return applyOnHistory;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
     public void setApplyOnHistory(boolean applyOnHistory) {

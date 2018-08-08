@@ -57,12 +57,12 @@ public class TransactionControllerImpl extends BaseUtility implements Transactio
 
     @Override
     public ResponseEntity<Transaction> updateTransaction(@PathVariable("id") Long id, @RequestBody @Valid NewTransactionDto newTransactionDto) {
-        return new ResponseEntity<>(transactionService.updateTransaction(id, newTransactionDto), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.updateTransaction(id, newTransactionDto, getCurrent()), HttpStatus.OK);
 
     }
 
     @Override
     public ResponseEntity<Transaction> assignCategoryToTransaction(@PathVariable("id") Long id, @RequestBody @Valid SingleCategoryIdWrapper singleCategoryIdWrapper) {
-        return new ResponseEntity<>(transactionService.assignCategory(id, singleCategoryIdWrapper.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.assignCategory(id, singleCategoryIdWrapper.getId(), getCurrent()), HttpStatus.OK);
     }
 }
