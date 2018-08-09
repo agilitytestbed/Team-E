@@ -6,6 +6,7 @@ import nl.utwente.ing.team.e.dpa.transaction.category.rule.CategoryRule;
 
 /**
  * @author Martijn Noorlander
+ * Dto that is created from a CategoryRule to adhere to the API specification
  */
 public class CategoryRuleDto {
 
