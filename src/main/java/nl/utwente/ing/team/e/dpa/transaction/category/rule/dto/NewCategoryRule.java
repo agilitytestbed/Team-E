@@ -3,6 +3,8 @@ package nl.utwente.ing.team.e.dpa.transaction.category.rule.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.utwente.ing.team.e.dpa.transaction.TransactionType;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Martijn Noorlander
  */
@@ -10,8 +12,10 @@ public class NewCategoryRule {
 
     private String description;
 
+    @NotNull
     private String iBAN;
 
+    @NotNull
     private TransactionType type;
 
     @JsonProperty(value = "category_id")

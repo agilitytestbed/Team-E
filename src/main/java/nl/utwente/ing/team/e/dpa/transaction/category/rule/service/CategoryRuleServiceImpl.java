@@ -42,7 +42,10 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
     @Override
     public CategoryRule getRule(Long index, Authenticated authenticated) {
         CategoryRule categoryRule = categoryRuleRepository.findOne(index);
-        if(categoryRule.getAuthenticated().equals(authenticated)){
+        if(categoryRule == null){
+            throw new NotFoundException("The given category does not exist");
+        }
+        if(!categoryRule.getAuthenticated().equals(authenticated)){
             throw new UnauthorizedException("Rule does not belong to this user");
         }
         return categoryRule;
@@ -52,7 +55,7 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
     public CategoryRule addRule(NewCategoryRule newCategoryRule, Authenticated authenticated) {
         CategoryRule categoryRule = new CategoryRule(newCategoryRule);
         categoryRule.setAuthenticated(authenticated);
-        Category category = categoryService.find(0L, authenticated);
+        Category category = categoryService.find(newCategoryRule.getCategoryId(), authenticated);
         if(category == null){
             throw new NotFoundException("The given category does not exist");
         }
@@ -69,7 +72,7 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
     @Override
     public CategoryRule updateRule(Long index, NewCategoryRule newCategoryRule, Authenticated authenticated) {
         CategoryRule categoryRule = categoryRuleRepository.findOne(index);
-        if(categoryRule.getAuthenticated().equals(authenticated)){
+        if(!categoryRule.getAuthenticated().equals(authenticated)){
             throw new UnauthorizedException("Rule does not belong to this user");
         }
         Category category = categoryService.find(newCategoryRule.getCategoryId(), authenticated);
@@ -82,7 +85,7 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
     @Override
     public void deleteRule(Long index, Authenticated authenticated) {
         CategoryRule categoryRule = categoryRuleRepository.findOne(index);
-        if(categoryRule.getAuthenticated().equals(authenticated)){
+        if(!categoryRule.getAuthenticated().equals(authenticated)){
             throw new UnauthorizedException("Rule does not belong to this user");
         }
         categoryRuleRepository.delete(index);
@@ -95,7 +98,7 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
 
         for(CategoryRule rule: rules){
             if(matchRule(rule, transaction)){
-                transaction = transactionService.assignCategory(transaction.getId(), rule.getCategory().getId(), authenticated);
+                return transactionService.assignCategory(transaction.getId(), rule.getCategory().getId(), authenticated);
             }
         }
         return transaction;

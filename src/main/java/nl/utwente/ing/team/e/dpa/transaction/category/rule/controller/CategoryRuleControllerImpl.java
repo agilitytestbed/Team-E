@@ -7,8 +7,11 @@ import nl.utwente.ing.team.e.dpa.transaction.category.rule.service.CategoryRuleS
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,22 +34,22 @@ public class CategoryRuleControllerImpl extends BaseUtility implements CategoryR
     }
 
     @Override
-    public ResponseEntity<CategoryRuleDto> addRule(NewCategoryRule newRule) {
+    public ResponseEntity<CategoryRuleDto> addRule(@RequestBody @Valid NewCategoryRule newRule) {
         return new ResponseEntity<>(new CategoryRuleDto(categoryRuleService.addRule(newRule, getCurrent())), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<CategoryRuleDto> getRule(Long id) {
+    public ResponseEntity<CategoryRuleDto> getRule(@PathVariable("id")Long id) {
         return new ResponseEntity<>(new CategoryRuleDto(categoryRuleService.getRule(id, getCurrent())), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<CategoryRuleDto> updateRule(Long id, NewCategoryRule newRule) {
+    public ResponseEntity<CategoryRuleDto> updateRule(@PathVariable("id") Long id, @RequestBody @Valid  NewCategoryRule newRule) {
         return new ResponseEntity<>(new CategoryRuleDto(categoryRuleService.updateRule(id, newRule, getCurrent())), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity deleteCategoryRule(Long id) {
+    public ResponseEntity deleteCategoryRule(@PathVariable("id")Long id) {
         categoryRuleService.deleteRule(id, getCurrent());
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
