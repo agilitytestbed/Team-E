@@ -17,10 +17,12 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    public Page<Transaction> findAllByAuthenticated(Pageable pageable, Authenticated authenticated);
+    Page<Transaction> findAllByAuthenticated(Pageable pageable, Authenticated authenticated);
 
-    public Page<Transaction> findAllByAuthenticatedAndCategory(Pageable pageable, Authenticated authenticated,
+    List<Transaction> findAllByAuthenticated(Authenticated authenticated);
+
+    Page<Transaction> findAllByAuthenticatedAndCategory(Pageable pageable, Authenticated authenticated,
                                                                Category category);
 
-    public List<Transaction> findALlByCategory(Category category);
+    List<Transaction> findALlByCategory(Category category);
 }

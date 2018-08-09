@@ -1,7 +1,7 @@
 package nl.utwente.ing.team.e.dpa.transaction.category.service;
 
-import nl.utwente.ing.team.e.dpa.framework.BaseUtility;
 import nl.utwente.ing.team.e.dpa.framework.exception.NotFoundException;
+import nl.utwente.ing.team.e.dpa.framework.exception.UnauthorizedException;
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
 import nl.utwente.ing.team.e.dpa.transaction.TransactionRepository;
 import nl.utwente.ing.team.e.dpa.transaction.category.Category;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author Martijn Noorlander
  */
 @Service
-public class CategoryServiceImpl extends BaseUtility implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     private final TransactionRepository transactionRepository;
     private final CategoryRepository categoryRepository;
@@ -39,19 +39,25 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
     }
 
     @Override
-    public Category find(Long id) {
+    public Category find(Long id, Authenticated authenticated) {
         Category category = categoryRepository.findOne(id);
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
+        }
+        if(!category.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
         }
         return category;
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id, Authenticated authenticated) {
         Category category = categoryRepository.findOne(id);
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
+        }
+        if(!category.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
         }
         transactionRepository.findALlByCategory(category).forEach(t -> {
             t.setCategory(null);
@@ -61,20 +67,26 @@ public class CategoryServiceImpl extends BaseUtility implements CategoryService 
     }
 
     @Override
-    public Category update(Long id, NewCategoryDto newCategoryDto) {
+    public Category update(Long id, NewCategoryDto newCategoryDto, Authenticated authenticated) {
         Category category = categoryRepository.findOne(id);
         if(category == null){
             throw new NotFoundException("The category with id: " + id + " was not found");
+        }
+        if(!category.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
         }
         category.setName(newCategoryDto.getName());
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category findByName(String categoryName) {
-        Category category = categoryRepository.findByNameAndAuthenticated(categoryName, getCurrent());
+    public Category findByName(String categoryName, Authenticated authenticated) {
+        Category category = categoryRepository.findByNameAndAuthenticated(categoryName, authenticated);
         if(category == null){
             throw new NotFoundException("The category with name: " + categoryName + " was not found");
+        }
+        if(!category.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
         }
         return category;
     }

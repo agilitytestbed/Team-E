@@ -1,10 +1,12 @@
 package nl.utwente.ing.team.e.dpa.transaction.service;
 
 import nl.utwente.ing.team.e.dpa.security.authentication.Authenticated;
-import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 import nl.utwente.ing.team.e.dpa.transaction.Transaction;
+import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Martijn Noorlander
@@ -47,12 +49,19 @@ public interface TransactionService {
     public Page<Transaction> getTransactions(int offset, int limit, String category, Authenticated authenticated);
 
     /**
+     * Get all transaction of a session
+     * @param authenticated Authenticated session
+     * @return Transaction
+     */
+    public List<Transaction> getAllTransaction(Authenticated authenticated);
+
+    /**
      * Update a transaction
      * @param id Long id of Transaction
      * @param newTransactionDto Transaction details to update
      * @return Transaction
      */
-    public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto);
+    public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto, Authenticated authenticated);
 
     /**
      * Assign a category to a transaction
@@ -60,5 +69,5 @@ public interface TransactionService {
      * @param categoryid id of category
      * @return Transaction
      */
-    public Transaction assignCategory(Long id, Long categoryid);
+    public Transaction assignCategory(Long id, Long categoryid, Authenticated authenticated);
 }

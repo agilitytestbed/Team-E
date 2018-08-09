@@ -43,7 +43,7 @@ public class SessionIdFilter extends GenericFilterBean {
             if (authenticatedService.verify(id)) {
                 SecurityContextHolder.getContext().setAuthentication(
                         new SessionIdAuthentication(authenticatedService.getAuthentication(id)));
-                System.out.println("Authenticated");
+                //System.out.println("Authenticated");
             } else {
                 httpServletResponse.sendError(401);
                 return;

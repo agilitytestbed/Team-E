@@ -27,6 +27,8 @@ public class Transaction {
 
     private Date date;
 
+    private String description;
+
     private double amount;
 
     @JsonProperty(value = "externalIBAN")
@@ -41,7 +43,8 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Authenticated authenticated, Date date, double amount, String externalIban, TransactionType type) {
+    public Transaction(Authenticated authenticated, Date date, double amount, String externalIban, TransactionType type, String description) {
+        this.description = description;
         this.authenticated = authenticated;
         this.date = date;
         this.amount = amount;
@@ -50,7 +53,8 @@ public class Transaction {
     }
 
 
-    public Transaction(Authenticated authenticated, Date date, double amount, String externalIban, TransactionType type, Category category) {
+    public Transaction(Authenticated authenticated, Date date, double amount, String externalIban, TransactionType type, String description, Category category) {
+        this.description = description;
         this.authenticated = authenticated;
         this.date = date;
         this.amount = amount;
@@ -92,9 +96,14 @@ public class Transaction {
     }
 
     public void update(NewTransactionDto newTransactionDto) {
+        this.description = newTransactionDto.getDescription();
         this.date = newTransactionDto.getDate();
         this.amount = newTransactionDto.getAmount();
         this.externalIban = newTransactionDto.getExternalIban();
         this.type = newTransactionDto.getType();
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

@@ -39,17 +39,17 @@ public class CategoryControllerImpl extends BaseUtility implements CategoryContr
 
     @Override
     public ResponseEntity<Category> getCategory(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(categoryService.find(id), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.find(id, getCurrent()), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity deleteCategory(@PathVariable("id") Long id) {
-        categoryService.delete(id);
+        categoryService.delete(id, getCurrent());
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @Override
     public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody @Valid NewCategoryDto newCategoryDto) {
-        return new ResponseEntity<>(categoryService.update(id, newCategoryDto), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.update(id, newCategoryDto, getCurrent()), HttpStatus.OK);
     }
 }

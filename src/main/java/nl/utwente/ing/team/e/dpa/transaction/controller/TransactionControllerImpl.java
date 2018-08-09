@@ -2,6 +2,7 @@ package nl.utwente.ing.team.e.dpa.transaction.controller;
 
 import nl.utwente.ing.team.e.dpa.transaction.category.dto.SingleCategoryIdWrapper;
 import nl.utwente.ing.team.e.dpa.framework.BaseUtility;
+import nl.utwente.ing.team.e.dpa.transaction.category.rule.service.CategoryRuleService;
 import nl.utwente.ing.team.e.dpa.transaction.dto.NewTransactionDto;
 import nl.utwente.ing.team.e.dpa.transaction.Transaction;
 import nl.utwente.ing.team.e.dpa.transaction.service.TransactionService;
@@ -24,9 +25,12 @@ public class TransactionControllerImpl extends BaseUtility implements Transactio
 
     private final TransactionService transactionService;
 
+    private final CategoryRuleService categoryRuleService;
+
     @Autowired
-    public TransactionControllerImpl(TransactionService transactionService) {
+    public TransactionControllerImpl(TransactionService transactionService, CategoryRuleService categoryRuleService) {
         this.transactionService = transactionService;
+        this.categoryRuleService = categoryRuleService;
     }
 
     @Override
@@ -40,7 +44,10 @@ public class TransactionControllerImpl extends BaseUtility implements Transactio
 
     @Override
     public ResponseEntity<Transaction> addTransaction(@RequestBody @Valid NewTransactionDto newTransactionDto) {
-        return new ResponseEntity<>(transactionService.addTransaction(newTransactionDto, getCurrent()), HttpStatus.CREATED);
+        Transaction transaction = transactionService.addTransaction(newTransactionDto, getCurrent());
+        //Apply categoryrules
+        transaction = categoryRuleService.applyRules(transaction, getCurrent());
+        return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
     @Override
@@ -57,12 +64,12 @@ public class TransactionControllerImpl extends BaseUtility implements Transactio
 
     @Override
     public ResponseEntity<Transaction> updateTransaction(@PathVariable("id") Long id, @RequestBody @Valid NewTransactionDto newTransactionDto) {
-        return new ResponseEntity<>(transactionService.updateTransaction(id, newTransactionDto), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.updateTransaction(id, newTransactionDto, getCurrent()), HttpStatus.OK);
 
     }
 
     @Override
     public ResponseEntity<Transaction> assignCategoryToTransaction(@PathVariable("id") Long id, @RequestBody @Valid SingleCategoryIdWrapper singleCategoryIdWrapper) {
-        return new ResponseEntity<>(transactionService.assignCategory(id, singleCategoryIdWrapper.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.assignCategory(id, singleCategoryIdWrapper.getId(), getCurrent()), HttpStatus.OK);
     }
 }

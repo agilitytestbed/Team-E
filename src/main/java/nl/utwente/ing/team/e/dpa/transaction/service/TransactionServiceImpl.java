@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Martijn Noorlander
  */
@@ -45,11 +47,11 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction;
         if (newTransaction.getCategory() == null) {
             transaction = new Transaction(authenticated, newTransaction.getDate(), newTransaction.getAmount(),
-                    newTransaction.getExternalIban(), newTransaction.getType());
+                    newTransaction.getExternalIban(), newTransaction.getType(), newTransaction.getDescription());
         } else {
-            Category category = categoryService.find(newTransaction.getCategory());
+            Category category = categoryService.find(newTransaction.getCategory(), authenticated);
             transaction = new Transaction(authenticated, newTransaction.getDate(), newTransaction.getAmount(),
-                    newTransaction.getExternalIban(), newTransaction.getType(), category);
+                    newTransaction.getExternalIban(), newTransaction.getType(), newTransaction.getDescription(), category);
         }
         return transactionRepository.save(transaction);
     }
@@ -70,25 +72,36 @@ public class TransactionServiceImpl implements TransactionService {
             return transactionRepository.findAllByAuthenticated(new PageRequest(offset, limit),
                     authenticated);
         }
-        Category categoryObj = categoryService.findByName(category);
+        Category categoryObj = categoryService.findByName(category, authenticated);
         return transactionRepository.findAllByAuthenticatedAndCategory(new PageRequest(offset, limit),
                 authenticated, categoryObj);
     }
 
     @Override
-    public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto) {
+    public List<Transaction> getAllTransaction(Authenticated authenticated) {
+        return transactionRepository.findAllByAuthenticated(authenticated);
+    }
+
+    @Override
+    public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto, Authenticated authenticated) {
         Transaction transaction = transactionRepository.findOne(id);
         if(transaction == null){
             throw new NotFoundException("The transaction with id: " + id + " was not found");
+        }
+        if(!transaction.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
         }
         transaction.update(newTransactionDto);
         return transactionRepository.save(transaction);
     }
 
     @Override
-    public Transaction assignCategory(Long id, Long categoryid) {
+    public Transaction assignCategory(Long id, Long categoryid, Authenticated authenticated) {
         Transaction transaction = transactionRepository.findOne(id);
-        Category category = categoryService.find(categoryid);
+        Category category = categoryService.find(categoryid, authenticated);
+        if(transaction != null && !transaction.getAuthenticated().equals(authenticated)){
+            throw new UnauthorizedException("Transaction does not belong to this user");
+        }
         transaction.setCategory(category);
         transaction = transactionRepository.save(transaction);
         return transaction;
