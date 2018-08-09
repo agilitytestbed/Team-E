@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 
 /**
  * @author Martijn Noorlander
+ * Entity with rule
  */
 @Entity
 public class CategoryRule {
@@ -23,6 +24,7 @@ public class CategoryRule {
 
     private String iban;
 
+    //Timestamp for keeping track of creation order
     private Timestamp timeStamp;
 
     private TransactionType transactionType;

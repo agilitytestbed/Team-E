@@ -42,9 +42,11 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
     @Override
     public CategoryRule getRule(Long index, Authenticated authenticated) {
         CategoryRule categoryRule = categoryRuleRepository.findOne(index);
+        //Check if rule exists
         if(categoryRule == null){
             throw new NotFoundException("The given category does not exist");
         }
+        //Check if rule belongs to session
         if(!categoryRule.getAuthenticated().equals(authenticated)){
             throw new UnauthorizedException("Rule does not belong to this user");
         }
@@ -55,11 +57,15 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
     public CategoryRule addRule(NewCategoryRule newCategoryRule, Authenticated authenticated) {
         CategoryRule categoryRule = new CategoryRule(newCategoryRule);
         categoryRule.setAuthenticated(authenticated);
+
+        //Find the category
         Category category = categoryService.find(newCategoryRule.getCategoryId(), authenticated);
         if(category == null){
             throw new NotFoundException("The given category does not exist");
         }
         categoryRule.setCategory(category);
+
+        //If applyonhistory is set to true, retrieve old transactions and apply them
         if(categoryRule.isApplyOnHistory()){
             List<Transaction> transactions = transactionService.getAllTransaction(authenticated);
             for(Transaction ts: transactions){
@@ -75,6 +81,8 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
         if(!categoryRule.getAuthenticated().equals(authenticated)){
             throw new UnauthorizedException("Rule does not belong to this user");
         }
+
+        //Find category and apply it to rule
         Category category = categoryService.find(newCategoryRule.getCategoryId(), authenticated);
         categoryRule.setCategory(category);
         categoryRule.setDescription(newCategoryRule.getDescription());
@@ -104,16 +112,31 @@ public class CategoryRuleServiceImpl implements CategoryRuleService {
         return transaction;
     }
 
+    /**
+     * Checks if a transaction matched with a rule
+     * @param categoryRule <code>CategoryRule</code> to check for match
+     * @param transaction <code>Transaction</code> to check for match
+     * @return boolean true/false
+     */
     private boolean matchRule(CategoryRule categoryRule, Transaction transaction){
+        //Check if type matches
         if(categoryRule.getTransactionType() != null && transaction.getType() != categoryRule.getTransactionType()){
             return false;
         }
+        //Check if description matches
         if(!categoryRule.getDescription().equals("") && !transaction.getDescription().contains(categoryRule.getDescription())){
             return false;
         }
+        //Check if IBAN matches
         return categoryRule.getIban().equals("") || transaction.getExternalIban().contains(categoryRule.getIban());
     }
 
+    /**
+     * Apply rule to a <code>Transaction</code>
+     * @param transaction <code>Transaction</code> to check for match
+     * @param categoryRule <code>CategoryRule</code> to check for match
+     * @param authenticated <code>Authenticated</code> session
+     */
     private void applyRule(Transaction transaction, CategoryRule categoryRule, Authenticated authenticated){
         if(matchRule(categoryRule, transaction)){
             transactionService.assignCategory(transaction.getId(), categoryRule.getCategory().getId(), authenticated);

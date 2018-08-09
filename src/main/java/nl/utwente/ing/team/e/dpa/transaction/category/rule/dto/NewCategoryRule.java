@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Martijn Noorlander
+ * DTO for creating and updating rules
  */
 public class NewCategoryRule {
 
