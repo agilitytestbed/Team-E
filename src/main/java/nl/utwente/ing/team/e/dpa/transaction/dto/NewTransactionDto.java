@@ -26,12 +26,15 @@ public class NewTransactionDto {
     @NotNull
     private TransactionType type;
 
+    private String description;
+
     private Long category;
 
     public NewTransactionDto() {
     }
 
-    public NewTransactionDto(Date date, double amount, String externalIban, TransactionType type, Long category) {
+    public NewTransactionDto(Date date, double amount, String externalIban, TransactionType type, Long category, String description) {
+        this.description = description;
         this.date = date;
         this.amount = amount;
         this.externalIBAN = externalIban;
@@ -57,5 +60,9 @@ public class NewTransactionDto {
 
     public Long getCategory() {
         return category;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
