@@ -31,18 +31,28 @@ public class BalanceServiceImpl implements BalanceService {
     public List<BalanceHistory> getHistory(Authenticated authenticated, BalanceInterval interval, Integer intervals) {
         List<BalanceHistory> histories = new ArrayList<>();
         Date beginDate = new Date(System.currentTimeMillis());
-        Date endDate = new Date(beginDate.getTime());
+        Date endDate = new Date(beginDate.getTime() - 1);
         double balance = 0;
         for(int i = 0; i < intervals; i++){
+            double flow = 0;
             BalanceHistory history = new BalanceHistory();
             history.setOpen(balance);
             history.setTimestamp(new Timestamp(beginDate.getTime()));
-            List<Transaction> transactions = null;
-
-
-
+            List<Transaction> transactions = transactionService.getAllTransaction(authenticated, beginDate, endDate);
+            for (Transaction transaction: transactions) {
+                balance = balance + transaction.getAmount();
+                flow = flow + Math.abs(transaction.getAmount());
+                if (balance < history.getLow()){
+                    history.setLow(balance);
+                }
+                if (balance > history.getHigh()){
+                    history.setHigh(balance);
+                }
+            }
             history.setClose(balance);
             histories.add(history);
+            beginDate = subtractInterval(beginDate, interval);
+            endDate = subtractInterval(endDate, interval);
         }
         return histories;
     }

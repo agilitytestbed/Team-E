@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,6 +81,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getAllTransaction(Authenticated authenticated) {
         return transactionRepository.findAllByAuthenticated(authenticated);
+    }
+
+    @Override
+    public List<Transaction> getAllTransaction(Authenticated authenticated, Date beginDate, Date endDate) {
+        return transactionRepository.findAllByAuthenticatedAndDateBetween(authenticated, beginDate, endDate);
     }
 
     @Override
