@@ -18,6 +18,7 @@ import java.util.List;
  * @author Martijn Noorlander
  * @since 11-8-2018.
  */
+
 public class BalanceServiceImpl implements BalanceService {
 
     private final TransactionService transactionService;

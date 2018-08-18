@@ -21,6 +21,6 @@ public interface BalanceService {
      * @param intervals int amount of intervals to show
      * @return <code>List</code> of <code>BalanceHistory</code> history
      */
-    public List<BalanceHistory> getHistory(Authenticated authenticated, BalanceInterval interval, Integer intervals);
+    List<BalanceHistory> getHistory(Authenticated authenticated, BalanceInterval interval, Integer intervals);
 
 }
