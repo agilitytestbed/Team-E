@@ -9,6 +9,7 @@ import nl.utwente.ing.team.e.dpa.transaction.category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,7 +28,9 @@ public class BalanceControllerImpl extends BaseUtility implements BalanceControl
     }
 
     @Override
-    public ResponseEntity<List<BalanceHistory>> getBalanceHistory(BalanceInterval interval, Integer intervals) {
+    public ResponseEntity<List<BalanceHistory>> getBalanceHistory(@RequestParam(value = "interval",
+            defaultValue = "0") BalanceInterval interval, @RequestParam(value = "intervals",
+            defaultValue = "24") Integer intervals) {
         return new ResponseEntity<>(balanceService.getHistory(getCurrent(), interval, intervals), HttpStatus.OK);
     }
 

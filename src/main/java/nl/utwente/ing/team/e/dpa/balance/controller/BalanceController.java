@@ -15,10 +15,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  * @author Martijn Noorlander
  * @since 11-8-2018.
  */
-@RequestMapping(value = "/balance/history")
+@RequestMapping(value = "/balance")
 public interface BalanceController {
 
-    @RequestMapping(method = GET)
+    @RequestMapping(value = "/history", method = GET)
     ResponseEntity<List<BalanceHistory>> getBalanceHistory(@RequestParam(value = "interval",
             defaultValue = "0") BalanceInterval interval,
                                                            @RequestParam(value = "intervals",
