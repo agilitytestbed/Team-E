@@ -79,4 +79,16 @@ public class BalanceHistory {
     public Timestamp getTimestamp() {
         return timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "BalanceHistory{" +
+                "open=" + open +
+                ", close=" + close +
+                ", high=" + high +
+                ", low=" + low +
+                ", volume=" + volume +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
