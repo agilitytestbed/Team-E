@@ -89,6 +89,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> getAllTransaction(Authenticated authenticated, Date beginDate) {
+        return transactionRepository.findAllByAuthenticatedAndDateBefore(authenticated, beginDate);
+    }
+
+    @Override
     public Transaction updateTransaction(Long id, NewTransactionDto newTransactionDto, Authenticated authenticated) {
         Transaction transaction = transactionRepository.findOne(id);
         if(transaction == null){

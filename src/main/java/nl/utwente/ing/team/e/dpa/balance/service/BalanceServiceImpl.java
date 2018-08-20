@@ -39,8 +39,15 @@ public class BalanceServiceImpl implements BalanceService {
         }
         Date endDate = new Date(beginDate.getTime() - 1);
         beginDate = subtractInterval(beginDate, interval);
-
+        List<Transaction> old = transactionService.getAllTransaction(authenticated, beginDate);
         double balance = 0;
+        for(Transaction transaction: old) {
+            if(transaction.getType() == TransactionType.withdrawal){
+                balance = balance - transaction.getAmount();
+            } else {
+                balance = balance + transaction.getAmount();
+            }
+        }
         for(int i = 0; i < intervals; i++){
             double flow = 0;
             BalanceHistory history = new BalanceHistory();

@@ -71,6 +71,14 @@ public interface TransactionService {
      */
     public List<Transaction> getAllTransaction(Authenticated authenticated, Date beginDate, Date endDate);
 
+    /**
+     * Get all transaction of a session before a date
+     *
+     * @param authenticated Authenticated session
+     * @param beginDate     beginDate
+     * @return Transaction
+     */
+    public List<Transaction> getAllTransaction(Authenticated authenticated, Date beginDate);
 
     /**
      * Update a transaction

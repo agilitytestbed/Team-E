@@ -28,4 +28,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findALlByCategory(Category category);
 
     List<Transaction> findAllByAuthenticatedAndDateBetween(Authenticated authenticated, Date startdate, Date enddate);
+
+    List<Transaction> findAllByAuthenticatedAndDateBefore(Authenticated authenticated, Date date);
 }
