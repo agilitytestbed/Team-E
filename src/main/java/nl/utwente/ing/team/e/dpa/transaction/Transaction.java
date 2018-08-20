@@ -106,4 +106,18 @@ public class Transaction {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", authenticated=" + authenticated +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", externalIban='" + externalIban + '\'' +
+                ", type=" + type +
+                ", category=" + category +
+                '}';
+    }
 }
