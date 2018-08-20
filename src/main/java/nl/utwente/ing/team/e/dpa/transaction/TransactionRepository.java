@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,4 +26,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
                                                                Category category);
 
     List<Transaction> findALlByCategory(Category category);
+
+    List<Transaction> findAllByAuthenticatedAndDateBetween(Authenticated authenticated, Date startdate, Date enddate);
+
+    List<Transaction> findAllByAuthenticatedAndDateBefore(Authenticated authenticated, Date date);
 }
